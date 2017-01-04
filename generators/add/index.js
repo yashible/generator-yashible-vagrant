@@ -4,7 +4,7 @@ var yaml = require('yamljs');
 var _ = require('underscore');
 var request = require('sync-request');
 
-var getRoleLastVersion = function (roleName, yo) {
+var getRoleLatestVersion = function (roleName, yo) {
   var roleParts = roleName.split('.');
   var username = roleParts[0];
   var name = roleParts[1];
@@ -44,7 +44,7 @@ module.exports = Generator.extend({
       return r.src === roleName;
     };
     if (_.find(requirements, srcFilter) === undefined) {
-      requirements.push({src: roleName, version: getRoleLastVersion(roleName, this)});
+      requirements.push({src: roleName, version: getRoleLatestVersion(roleName, this)});
     }
     this.fs.write(requirementsPath, yaml.stringify(requirements, 4, 2));
   }
