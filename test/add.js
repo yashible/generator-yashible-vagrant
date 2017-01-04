@@ -7,6 +7,8 @@ var yaml = require('yamljs');
 var _ = require('underscore');
 
 describe('generator-yashible-vagrant:add', function () {
+  this.timeout(10000);
+
   var addedRole = 'rfhayashi.openjdk';
 
   before(function () {
@@ -23,7 +25,7 @@ describe('generator-yashible-vagrant:add', function () {
     var content = fs.readFileSync('ansible/requirements.yml', 'utf-8');
     var requirements = yaml.parse(content);
     assert(_.find(requirements, function (r) {
-      return r.src === addedRole;
+      return r.src === addedRole && r.version !== undefined;
     }) !== undefined);
   });
 });
