@@ -32,5 +32,21 @@ module.exports = Generator.extend({
       this.templatePath('ansible/vagrant.yml'),
       this.destinationPath('ansible/vagrant.yml')
     );
+
+    var gitignorePath = this.destinationPath('.gitignore');
+    var gitignoreContent = '';
+    if (this.fs.exists(gitignorePath)) {
+      gitignoreContent = this.fs.read(gitignorePath);
+    }
+    if (!gitignoreContent.match(/\.idea\n/)) {
+      gitignoreContent += '\n.idea\n';
+    }
+    if (!gitignoreContent.match(/\.vagrant\n/)) {
+      gitignoreContent += '\n.vagrant\n';
+    }
+    if (!gitignoreContent.match(/ansible\/roles\n/)) {
+      gitignoreContent += '\nansible/roles\n';
+    }
+    this.fs.write(gitignorePath, gitignoreContent);
   }
 });
