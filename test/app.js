@@ -17,4 +17,8 @@ describe('generator-yashible-vagrant:app', function () {
   it('creates requirements.yml file', function () {
     assert.file('ansible/requirements.yml');
   });
+
+  it('creates vagrant.yml file', function () {
+    assert.file('ansible/vagrant.yml');
+  });
 });

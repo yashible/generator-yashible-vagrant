@@ -27,5 +27,10 @@ module.exports = Generator.extend({
       this.templatePath('ansible/requirements.yml'),
       this.destinationPath('ansible/requirements.yml')
     );
+
+    this.fs.copy(
+      this.templatePath('ansible/vagrant.yml'),
+      this.destinationPath('ansible/vagrant.yml')
+    );
   }
 });
