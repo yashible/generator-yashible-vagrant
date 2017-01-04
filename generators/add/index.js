@@ -20,6 +20,7 @@ var getRoleLastVersion = function (roleName, yo) {
   var versions = JSON.parse(roleVersionsRes.body).results;
   var version = _.first(versions);
   yo.log('using version ' + version.name + ' for role ' + roleName);
+  return version.name;
 };
 
 module.exports = Generator.extend({
@@ -35,6 +36,9 @@ module.exports = Generator.extend({
     var requirementsPath = this.destinationPath('ansible/requirements.yml');
     var fileContent = this.fs.read(requirementsPath);
     var requirements = yaml.parse(fileContent);
+    if (requirements === null) {
+      requirements = [];
+    }
     var roleName = this.options.name;
     var srcFilter = function (r) {
       return r.src === roleName;

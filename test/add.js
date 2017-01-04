@@ -25,7 +25,7 @@ describe('generator-yashible-vagrant:add', function () {
     var content = fs.readFileSync('ansible/requirements.yml', 'utf-8');
     var requirements = yaml.parse(content);
     assert(_.find(requirements, function (r) {
-      return r.src === addedRole && r.version !== undefined;
+      return r.src === addedRole && r.version !== undefined && r.version !== null;
     }) !== undefined);
   });
 });
