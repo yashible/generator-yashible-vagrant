@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- v7
+- v6
+- v5
+deploy:
+  provider: npm
+  email: rfhayashi@gmail.com
+  api_key:
+    secure: SpMyVdQxgzeVrz2jAlPpDpy2tgAzAwRsEoFp7wATrrfd8AfW5ru2k/htATgJlLk/0n6qrHAb+UOZ3gqFy0tNxW7mPSlTeZZ+eA+Xz4dr5VbxmU2HWIquWw/V2l/QnUc7PGo+sdslvB2mWcppiGyzXis/epta86VkQqwo+k1qhkfOlnVFtoIb6hLNVxw8rBSXYmwiOPkA/EfmF4XwNNbRgbg88lqZDxLgvGDXa5l86nZQpjB07CQ4v1vZeKxgXRrpuTD7hHCbBuHoU75cuVQo7Gbw1fKV5CcZHYXxNxtt+LYwM3HcfTHidlHCUeb2p2uhcze90a7TxtU3k9V+WulSa0lJy7cbZpFU/8cPRemzLukehA7VPIXFwy68Vyc+3wNA3OQpwQ8nDHP/6HOl6eRkHRQk2LyEb73CC9+PjSHPzX4hTUy3N0uWin9xfUMPgLe3HZXHjk7OAfqq8FQk+3rpzowzTYzDa4/NnAB4Vt2CFTVam0rHwGOEJFIBUamETc1CWSFZ1wIeYny6d9biV58Puu5/aaXQQtZv+yh+lsatHKxQB//VNLV2tGS1RMeRKI95wTSZKtoFIVZICagyITrD0SIqShYqUh0eSwPCcH1SKZopD9Yf4eOPrUGdTMF47i0hnu8QYNFGIbUig5e8QYFIiV7HTySUVbSqgYKNrHcqcVI=
+  on:
+    tags: true
+    repo: yashible/generator-yashible-vagrant
+    nodejs: v7
