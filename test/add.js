@@ -16,7 +16,7 @@ describe('generator-yashible-vagrant:add', function () {
     before(function () {
       return helpers.run(path.join(__dirname, '../generators/add'))
         .inTmpDir(function (dir) {
-          fs.mkdir(dir + '/ansible');
+          fs.mkdirSync(dir + '/ansible');
           fs.writeFileSync(dir + '/ansible/requirements.yml', '---\n- src: somerole');
           fs.writeFileSync(dir + '/ansible/vagrant.yml', '---\n- hosts: all');
         })
