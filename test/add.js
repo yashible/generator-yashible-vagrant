@@ -44,11 +44,28 @@ describe('generator-yashible-vagrant:add', function () {
   });
 
   describe('edge cases', function () {
+    it('it deals with an empty requirements file', function (done) {
+      helpers.run(path.join(__dirname, '../generators/add'))
+        .inTmpDir(function (dir) {
+          fs.mkdirSync(dir + '/ansible');
+          fs.writeFileSync(dir + '/ansible/requirements.yml', '---\n');
+          fs.writeFileSync(dir + '/ansible/vagrant.yml', '---\n- hosts: all');
+        })
+        .withArguments(['rfhayashi.openjdk'])
+        .on('end', function () {
+          assert.fileContent('ansible/requirements.yml', /rfhayashi\.openjdk/);
+          assert.fileContent('ansible/vagrant.yml', /rfhayashi\.openjdk/);
+
+          done();
+        });
+    });
+
     it('it shows nice error message if added role does not exist', function (done) {
       helpers.run(path.join(__dirname, '../generators/add'))
         .inTmpDir(function (dir) {
           fs.mkdirSync(dir + '/ansible');
           fs.writeFileSync(dir + '/ansible/requirements.yml', '---');
+          fs.writeFileSync(dir + '/ansible/vagrant.yml', '---\n- hosts: all');
         })
         .withArguments(['user.nonexistent'])
         .on('error', function (error) {
