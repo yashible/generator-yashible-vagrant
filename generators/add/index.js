@@ -34,8 +34,8 @@ module.exports = Generator.extend({
 
   writing: function () {
     var requirementsPath = this.destinationPath('ansible/requirements.yml');
-    var fileContent = this.fs.read(requirementsPath);
-    var requirements = yaml.parse(fileContent);
+    var requirementsFileContent = this.fs.read(requirementsPath);
+    var requirements = yaml.parse(requirementsFileContent);
     if (requirements === null) {
       requirements = [];
     }
@@ -58,5 +58,18 @@ module.exports = Generator.extend({
       requirements.push(req);
     }
     this.fs.write(requirementsPath, yaml.stringify(requirements, 4, 2));
+
+    var vagrantPath = this.destinationPath('ansible/vagrant.yml');
+    var vagrantFileContent = this.fs.read(vagrantPath);
+    var vagrant = yaml.parse(vagrantFileContent);
+    var playbook = _.first(vagrant);
+    if (playbook.roles === undefined) {
+      playbook.roles = [];
+    }
+    var roles = playbook.roles;
+    if (!_.contains(roles, roleName)) {
+      roles.push(roleName);
+    }
+    this.fs.write(vagrantPath, yaml.stringify(vagrant, 4, 2));
   }
 });

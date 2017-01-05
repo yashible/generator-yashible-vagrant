@@ -18,6 +18,7 @@ describe('generator-yashible-vagrant:add', function () {
         .inTmpDir(function (dir) {
           fs.mkdir(dir + '/ansible');
           fs.writeFileSync(dir + '/ansible/requirements.yml', '---\n- src: somerole');
+          fs.writeFileSync(dir + '/ansible/vagrant.yml', '---\n- hosts: all');
         })
         .withArguments([addedRole])
         .toPromise();
@@ -28,6 +29,16 @@ describe('generator-yashible-vagrant:add', function () {
       var requirements = yaml.parse(content);
       assert(_.find(requirements, function (r) {
         return r.src === addedRole && r.version !== undefined && r.version !== null;
+      }) !== undefined);
+    });
+
+    it('it adds role to vagrant.yml', function () {
+      var content = fs.readFileSync('ansible/vagrant.yml', 'utf-8');
+      var vagrant = yaml.parse(content);
+      var playbook = _.first(vagrant);
+      assert(playbook.roles.length > 0);
+      assert(_.find(playbook.roles, function (r) {
+        return r === addedRole;
       }) !== undefined);
     });
   });
